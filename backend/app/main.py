@@ -17,14 +17,18 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Realtime Pair Programming Prototype")
 
-# allow CORS from frontend dev server
-origins = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000"
-]
+# CORS configuration - environment-based
+cors_origins = os.getenv(
+    "CORS_ORIGINS",
+    "http://localhost:3000,http://127.0.0.1:3000"
+).split(",")
+
 app.add_middleware(
-    CORSMiddleware, allow_origins=origins, allow_credentials=True,
-    allow_methods=["*"], allow_headers=["*"],
+    CORSMiddleware,
+    allow_origins=cors_origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.include_router(rooms_router.router)
