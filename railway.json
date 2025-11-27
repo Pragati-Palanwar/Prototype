@@ -1,0 +1,23 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "backend": {
+      "path": "backend",
+      "dockerfilePath": "backend/Dockerfile"
+    },
+    "frontend": {
+      "path": "frontend",
+      "dockerfilePath": "frontend/Dockerfile"
+    }
+  },
+  "deploy": {
+    "backend": {
+      "restartPolicyType": "ON_FAILURE",
+      "numReplicas": 1
+    },
+    "frontend": {
+      "restartPolicyType": "ON_FAILURE",
+      "numReplicas": 1
+    }
+  }
+}
